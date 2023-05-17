@@ -32,7 +32,11 @@ function im = visualise_image (train_mat, number)
   % transpusa.
   % HINT: functia reshape
   
-  % TODO: transforma matricea in uint8 pentru a fi o imagine valida.
+  line = train_mat(number, :);
+  im = reshape(line, 28, 28);
+  im = im';
   
+  % TODO: transforma matricea in uint8 pentru a fi o imagine valida.
+  im = uint8(im);
   % imshow (im)
 endfunction

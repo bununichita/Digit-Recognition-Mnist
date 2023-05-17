@@ -31,7 +31,7 @@ function new_X = task2 (photo, pcs)
   % TODO: cast photo la double.
   photo = double(photo);
   % TODO: normalizeaza matricea initiala scazand din ea media fiecarui rand.
-  m = rows(photo)
+  m = rows(photo);
   n = columns(photo);
   miu = zeros(m, 1);
   for i = 1:m
