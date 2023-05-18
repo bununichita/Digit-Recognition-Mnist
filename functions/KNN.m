@@ -32,6 +32,12 @@ function prediction = KNN (labels, Y, test, k)
   
   % TODO: pentru fiecare rand calculati distanta Euclidiana dintre acesta si
   % vectorul de test primit ca argument.
+  for i = 1:m
+    aux = Y(i, :) - test;
+    aux = aux .^ 2;
+    sum = sum(aux);
+    distance(i) = sqrt(sum);
+  endfor
   
   % TODO: ordonati crescator distantele si tineti minte intr-un vector primele
   % k valori care reprezinta valorile adevarate ale acestor imagini care s-au
