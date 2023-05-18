@@ -29,11 +29,7 @@ function sir = prepare_photo (im)
   % TODO: inverseaza pixelii imaginii im.
   for i = 1:28
     for j = 1:28
-      if im(i, j) == 0
-        im(i, j) == 255;
-      else
-        im(i, j) == 0;
-      endif
+      im(i, j) = 255 - im(i, j);
     endfor
   endfor
   % TODO: transpune imaginea, iar apoi transforma imaginea intr-un vector linie.

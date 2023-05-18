@@ -40,43 +40,29 @@ function [train, miu, Y, Vk] = magic_with_pca (train_mat, pcs)
   % TODO: cast train_mat la double.
   train_mat = double(train_mat);
   % TODO: calculeaza media fiecarei coloane a matricii.
-  miu = zeros(m, 1);
-  for i = 1:m
-    s = sum(train_mat(i:i, :));
-    miu(i) = s / n;
+  for i = 1:n
+    miu(i) = mean(train_mat(:, i));
   endfor
   % TODO: scade media din matricea initiala.
-  for i = 1:m
-    train_mat(i, :) -= miu(i);
+  for i = 1:n
+    train_mat(:, i) -= miu(i);
   endfor
   % TODO: calculeaza matricea de covarianta.
   cov_matrix = (train_mat' * train_mat) / (m - 1);
   % TODO: calculeaza vectorii si valorile proprii ale matricei de covarianta.
   % HINT: functia eig
-  [vect, val] = eig(cov_matrix);
+  [vect val] = eig(cov_matrix);
   % TODO: ordoneaza descrescator valorile proprii si creaza o matrice V
   % formata din vectorii proprii asezati pe coloane, astfel incat prima coloana
   % sa fie vectorul propriu corespunzator celei mai mari valori proprii si
   % asa mai departe.
-  sorted = 0;
-  while !sorted
-    sorted = 1;
-    for i = 1:rows(val) - 1
-      if val(i, i) < val(i + 1, i + 1)
-        aux = val(i, i);
-        val(i, i) = val(i + 1, i + 1);
-        val(i + 1, i + 1) = aux;
-        aux = vect(:, i);
-        vect(:, i) = vect(:, i + 1);
-        vect(:, i + 1) = aux;
-        sorted = 0;
-      endif
-    endfor
-  endwhile
+  diagonal = diag(val);
+  [sorted_val index] = sort(diagonal, 'descend');
+  vect = vect(:, index);
   % TODO: pastreaza doar primele pcs coloane din matricea obtinuta anterior.
   Vk = vect(:, 1:pcs);
   % TODO: creaza matricea Y schimband baza matricii initiale.
-  Y = train_mat' * Vk;
+  Y = train_mat * Vk;
   % TODO: calculeaza matricea train care este o aproximatie a matricii initiale
   % folosindu-va de matricea Vk calculata anterior
   train = Y * Vk';
